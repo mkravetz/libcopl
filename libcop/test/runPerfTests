@@ -1,0 +1,103 @@
+#!/bin/bash
+#each run in tried some number of times to avoid vagaries on real hardware
+function run {
+  for version in _sync_noPapi _async_noPapi; do
+    for subalgo in $3; do
+      for pktsize in ${pktsizesAttempted}; do
+        for threads in ${threadsAttempted}; do
+          for reqs in ${reqsAttempted}; do
+    	    success=0;
+    	    echo -n "$1, $version, $subalgo, $pktsize, $threads, $reqs, " 
+            for i in $(seq 1 $tries); do
+	      echo -n $i:  
+    	      ./perf_${2}${version} $subalgo $pktsize $threads $reqs &> temp
+    	      found=`grep "Thread 0: 0/${reqs} failures" temp|wc -l`  
+    	      if [ $found -gt 0 ]; then
+    	        let success++
+    	      fi
+    	    done
+    	    echo ", $tries, $success" 
+          done
+        done
+      done
+    done
+  done
+}
+
+function runOnlySync {
+  for version in _sync_noPapi; do
+    for subalgo in $3; do
+      for pktsize in ${pktsizesAttempted}; do
+        for threads in ${threadsAttempted}; do
+          for reqs in ${reqsAttempted}; do
+    	    success=0;
+    	    echo -n "$1, $version, $subalgo, $pktsize, $threads, $reqs, " 
+            for i in $(seq 1 $tries); do
+	      echo -n $i:  
+    	      ./perf_${2}${version} $subalgo $pktsize $threads $reqs &> temp
+    	      found=`grep "Thread 0: 0/${reqs} failures" temp|wc -l`  
+    	      if [ $found -gt 0 ]; then
+    	        let success++
+    	      fi
+    	    done
+    	    echo ", $tries, $success" 
+          done
+        done
+      done
+    done
+  done
+}
+
+tries=6;
+pktsizesAttempted='64 256 1024'
+threadsAttempted='1 4'
+reqsAttempted='10 100'
+
+algo='AES'
+algoCallName='aes'
+subalgosAllowed='1 2 3 4 5 6'
+run $algo $algoCallName "$subalgosAllowed"
+
+algo='DES'
+algoCallName='des'
+subalgosAllowed='1 2 3 4'
+run $algo $algoCallName "$subalgosAllowed"
+
+algo='SHA'
+algoCallName='sha'
+subalgosAllowed='1 2 3 4'
+run $algo $algoCallName "$subalgosAllowed"
+
+algo='ARC4'
+algoCallName='arc4'
+subalgosAllowed='1 2 3'
+run $algo $algoCallName "$subalgosAllowed"
+
+algo='MD5'
+algoCallName='md5'
+subalgosAllowed='1'
+run $algo $algoCallName "$subalgosAllowed"
+
+algo='KASUMI'
+algoCallName='kasumi'
+subalgosAllowed='1'
+runOnlySync $algo $algoCallName "$subalgosAllowed"
+
+algo='ASYMMETRIC'
+algoCallName='asym'
+subalgosAllowed='1 2'
+run $algo $algoCallName "$subalgosAllowed"
+
+algo='COMBO'
+algoCallName='combo'
+subalgosAllowed='  1   2   3   4   5   6   7   8   9 
+                  11  12  13  14  15  16  17  18  19 
+                  21  22  23  24  25  26  27  28  29 
+                  31  32  33  34  35  36  37  38  39 
+                  41  42  43  44  45  46  47  48  49 
+                  51  52  53  54  55  56  57  58  59 
+                 101 102 103 
+                 111 112 113 
+                 121 122 123 '
+run $algo $algoCallName "$subalgosAllowed"
+

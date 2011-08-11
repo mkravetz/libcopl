@@ -1,0 +1,107 @@
+.\" This manpage is Copyright (C) 2009, 2010 IBM
+.\" Written by Chris J Arges <arges@linux.vnet.ibm.com>
+.\"
+.TH COP_SESSION 2010-06-30 "libcop" "Libcop Programmer's Manual"
+.SH NAME
+cop_regx \- Regular Expressions coprocessor functions
+.SH SYNOPSIS
+These functions cover access to the Regular Expression engine on the Wire Speed Processor.
+.P
+.B #include <libcop.h>
+.P
+.nf
+
+/**
+ * cop_regx_create_session() - allocate a session structure
+ *
+ * Returns a pointer to an allocated session structure, NULL on errors,
+ * Init UM if it hasn't been done yet.
+ */
+cop_session_t *cop_regx_create_session();
+
+/**
+ * cop_regx_free_session() - free a session
+ * @ session - pointer to session structure to be freed.
+ *
+ * Note, we only free stuff if it actually exists.
+ */
+void cop_regx_free_session(cop_session_t *session);
+
+/**
+ * cop_regx_reset_session() - reuse session memory with new context
+ * @ session - pointer to session structure to be reset.
+ *
+ * Reset session to a zeroed state. Useful for recycling sessions.
+ */
+void cop_regx_reset_session(cop_session_t *session);
+
+/**
+ * cop_regx_pcs_load() - upload a pcs and map file
+ * @session - session pointer.
+ * @pcs_file - .pcs binary rules file, created by compiler.
+ * @map_file - .map file, maps between match results and pattern,
+ *             created by compiler.
+ * 
+ * Returns the load_id, return 0 if invalid
+ */
+um_load_id_t cop_regx_pcs_load(cop_session_t *session, char *pcs_file,
+			       char *map_file);
+
+/*
+ * cop_regx_get_pattern() - return a pattern number of a result
+ * @result - pointer to result entry
+ *
+ * Returns the pattern number of a particular result 
+ */ 
+uint32_t cop_regx_get_pattern(cop_regx_results_entry *result,
+			      unsigned int pcid);
+
+/*
+ * cop_regx_search() - execute a search given a context
+ * @ session - an already allocated session handle
+ * @ ctx_id - the desired context number
+ * @ source - Source pointer to the data
+ * @ source_size - length of the source data
+ */
+void cop_regx_search(cop_session_t *session, uint32_t ctx,
+		     const void *source, size_t source_size);
+
+/**
+ * cop_regx_get_results() - populates an offset array
+ * @ session - regx session.
+ * @ offset_array - returns a pointer to an array of integer offsets.
+ * @ pattern_array - returns a pointer to an array of pattern numbers.
+ * @ scommand_array - returns a pointer to an array of scommands.
+ *
+ * Returns the number of offsets in the array. User is responsible for
+ * freeing all arrays.
+ */
+int cop_regx_get_results(cop_session_t *session,
+	int **offset_array, int **pattern_array, int **scommand_array);
+
+.SH EXAMPLE
+.nf
+/* a few necessary variables */
+void *source;
+size_t source_length;
+int *offset_array, *pattern_array, *scommand_array;
+int context_id;
+
+/* first, create a regular expression session */
+cop_session_t *session = cop_regx_create_session();
+
+/* next we need to load the appropriate compiled rules */
+um_load_id_t id = cop_regx_pcs_load(session, "filename.pcs",
+				    "filename.map");
+
+/* perform the search */
+cop_regx_search(session, context_id, source, source_length,
+		COP_FLAG_ONESHOT);
+
+/* get the results back */
+int total_results = cop_regx_get_results(session, &offset_array,
+				&pattern_array, &scommand_array);
+
+.SH SEE ALSO
+libcop(3)
+cop_session(3)

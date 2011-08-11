@@ -1,0 +1,57 @@
+.\" This manpage is Copyright (C) 2009, 2010 IBM
+.\" Written by Tom Gall <tom_gall@vnet.ibm.com>
+.\"            Mikr Kravetz <mkravetz@us.ibm.com>
+.\"
+.TH COP_DATA_MOVE 3 2010-06-30 "Libcop" "Libcop Programmer's Manual"
+.SH NAME
+cop_data_move \- Asychronous Data Mover
+.SH SYNOPSIS
+.nf
+.I Asynchronous Data Mover function:
+.sp
+.B #include <libcop.h>
+.P
+void *cop_memcpy(void *s, void *ct, size_t n);
+
+void *cop_memmove(void *s, void *ct, size_t n);
+
+void *cop_memset(void *s, int c, size_t n);
+
+.SH DESCRIPTION
+.SS memory copy, move and set functions. 
+function:
+.RS
+.B cop_memcpy
+.RE
+.P
+parameters:
+.RS
+.I void *s
+is a pointer to the memory area destination
+
+This memory must be PBIC mapped or obtained with cop_malloc*
+
+.P
+.I void *ct
+is a pointer to the memory area source
+
+This memory must be PBIC mapped or obtained with cop_malloc*
+.P
+.I size_t n
+is the number of bytes to copy
+.P
+.I int c
+character c to be placed in first n characters of s in cop_memset
+.RE
+.P 
+cop_memcpy, cop_memmove and cop_memset will not return until the coprocessor has completed it's work.
+
+.RE
+.P
+.SH RETURN VALUE
+cop_memcpy, cop_memmove, and cop_memset, all return a pointer to the destination
+.P
+.SH SEE ALSO
+libcop(3)
+cop_malloc(3)
+cop_data_move_async(3)

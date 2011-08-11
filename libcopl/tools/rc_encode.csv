@@ -1,0 +1,57 @@
+"RC";"ABNR";"Dnq";"Dnp";"XYKN";"2mABR";"2mN";"2mA"
+0;56;28;29;56;56;57;56
+8;0;0;0;0;163;164;56
+16;192;96;97;192;0;0;0
+24;224;112;113;224;0;0;0
+32;0;0;0;0;233;234;56
+40;256;128;129;256;0;0;0
+48;0;0;0;0;283;284;56
+56;384;192;193;384;0;0;0
+64;0;0;0;0;409;410;56
+72;512;256;257;0;0;0;0
+80;521;261;262;521;0;0;0
+88;0;0;0;0;571;572;56
+96;1024;512;513;0;0;0;0
+104;2048;1024;1025;0;0;0;0
+112;4096;2048;2049;0;0;0;0
+"###";;;;;;;
+"Type";"Desc";"Op Names";"Types";"Rcs Supported";"R Type";;
+"IMF";"Integer Modular Functions";"A,B,N";"1,1,1";"16,40,72,96,104,112";0;;
+"IMRI";"Integer Modular Reduction and Inverse";"A,N";"1,1";"16,40,72,96,104,112";0;;
+"IMCRT";"CRT Modular Exponentiation";"A,Dp,Dq,Np,Nq,U";"1,3,2,3,2,3";"16,40,72,96,104,112";0;;
+"ECCPADD";"ECC GF(p) Point Functions";"Xp,Yp,Xq,Yq,N";"4,4,4,4,4";"16,40,80";3;;
+"ECCPDBL";"ECC GF(p) Point Doubling Function";"Xp,Yp,N";"4,4,4";"16,40,80";3;;
+"ECCPMUL";"ECC GF(p) Point Multiplication Function";"Xp,Yp,N,k";"4,4,4,4";"16,40,80";3;;
+"ECCM2AME";"ECC GF(2^m) Modular Functions";"A,B,N";"5,5,6";"8,32,48,64,88";4;;
+"ECCM2RI";"ECC GF(2^m) Modular Reduction and Inverse";"A,N";"5,6";"8,32,48,64,88";4;;
+"ECCP2ADD";"ECC GF(2^m) Point Add";"Xp,Yp,Xq,Yq,N,a";"5,5,5,5,6,7";"8,32,48,64,88";4;;
+"ECCP2DBL";"ECC GF(2^m) Point Double";"Xp,Yp,N,a";"5,5,6,7";"8,32,48,64,88";4;;
+"ECCP2MUL";"ECC GF(2^m) Point Multiply";"Xp,Yp,N,a,k";"5,5,6,7,6";"8,32,48,64,88";4;;
+"###";;;;;;;
+"ECCPresult";"ECC GF(p) Point Operation Result";"Xr,Yr";"4,4";"16,40,80";3;;
+"ECCP2result";"ECC GF(2^m) Point Operation Result";"Xr,Yr";"5,5";"8,32,48,64,88";4;;
+"###";;;;;;;
+"Function";"FC";"Type";"Desc";"Equation";;;
+"MMUL";0;"IMF";"Integer Modular Multiplication";"R=A*B mod N";;;
+"MGMUL";1;"IMF";"Integer Modular Montgomery Multiplication";"R=A*B*O^(-1) mod N";;;
+"MEX";2;"IMF";"Integer Modular Exponentiation";"R=A^B mod N";;;
+"MR";3;"IMRI";"Integer Modular Reduction";"R=A mod N";;;
+"MINV";4;"IMRI";"Integer Modular Inverse";"R=A^(-1) mod N";;;
+"MADD";5;"IMF";"Integer Modular Addition";"R=A+B mod N";;;
+"MSUB";6;"IMF";"Integer Modular Subtraction";"R=A-B mod N";;;
+"MEXC";7;"IMCRT";"Integer Modular CRT Exponentiation";"R=A^B mod N, where N=Np*Nq, Dp=B Mod Np-1, Dq=B Mod Nq-1, U=Nq-1 Mod Np 
+";;;
+"PADD";8;"ECCPADD";"Elliptical Curve Cryptography GF(p) Point Add";"(Xr,Yr)=(Xp,Yp)+(Xq,Yq) (Other Inputs: N=modulus) ";;;
+"PDBL";9;"ECCPDBL";"Elliptical Curve Cryptography GF(p) Point Double";"(Xr,Yr)=(Xp,Yp)*2 (Other Inputs: N=modulus) ";;;
+"PMUL";10;"ECCPMUL";"Elliptical Curve Cryptography GF(p) Point Multiplication";"(Xr,Yr)=(Xp,Yp)*K (Other Inputs: N=modulus) ";;;
+"M2MUL";11;"ECCM2AME";"Elliptical Curve Cryptography GF(2^m) Modular Multiplication";"R(x)=A(x)*B(x) Mod N(x) ";;;
+"MG2MUL";12;"ECCM2AME";"Elliptical Curve Cryptography GF(2^m) Modular Montgomery Multiplication";"R(x)=A(x)*B(x)*O-1 Mod N(x) ";;;
+"M2EX";13;"ECCM2AME";"Elliptical Curve Cryptography GF(2^m) Modular Exponentiation";"R(x)=A(x)^B(x) Mod N(x) ";;;
+"M2R";14;"ECCM2RI";"Elliptical Curve Cryptography GF(2^m) Modular Reduction";"R(x)= A(x) Mod N(x) ";;;
+"M2MI";15;"ECCM2RI";"Elliptical Curve Cryptography GF(2^m) Modular Inverse";"R(x)=A(x)-1 Mod N(x) ";;;
+"M2ADD";16;"ECCM2AME";"Elliptical Curve Cryptography GF(2^m) Modular Addition";"R(x)=A(x)+B(x) Mod N(x) ";;;
+"P2ADD";17;"ECCP2ADD";"Elliptical Curve Cryptography GF(2^m) Point Addition";"[Xr(x),Yr(x)]=[Xp(x),Yp(x)]+[Xq(x),Yq(x)] (Other Inputs: N(x)=irreducible polynomial, a=elliptic curve equation coeffecient) ";;;
+"P2DBL";18;"ECCP2DBL";"Elliptical Curve Cryptography GF(2^m) Point Doubling";"[Xr(x),Yr(x)]=[Xp(x),Yp(x)]*2 (Other Inputs: N(x)=irreducible polynomial, a=elliptic curve equation coeffecient) ";;;
+"P2MUL";19;"ECCP2MUL";"Elliptical Curve Cryptography GF(2^m) Point Multiplication";"[Xr(x),Yr(x)]=[Xp(x),Yp(x)]*K (Other Inputs: N(x)=irreducible polynomial, a=elliptic curve equation coeffecient) ";;;
+"MNR";20;"IMRI";"Integer Modular Reduction Negated";"R= -A Mod N= N - (A Mod N) ";;;
+"###";;;;;;;

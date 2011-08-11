@@ -1,0 +1,50 @@
+.\" This manpage is Copyright (C) 2010 IBM
+.\" Written by Mike Kravetz <kravetz@us.ibm.com>
+.\"
+.TH COP_CACHE 3 2010-06-30 "Libcopcache" "Libcop Programmer's Manual"
+.SH NAME
+cop_cache \- asymmetric coprocessor functions
+.SH SYNOPSIS
+.nf
+.B #include <libcopcache.h>
+.sp
+.I DDE Management
+
+unsigned long cop_available_DDEs(mapped_memory_pool_t p);
+
+void *cop_next_DDE(mapped_memory_pool_t p);
+
+void cop_give_back_DDE(mapped_memory_pool_t p, void *crb,
+	               unsigned int type);
+
+.I CRB Management
+
+unsigned long cop_available_crbs(mapped_memory_pool_t p,
+				 unsigned int type);
+
+void *cop_next_crb(mapped_memory_pool_t p,unsigned int type);
+
+void cop_give_back_crb(mapped_memory_pool_t p, void *crb,
+		       unsigned int type);
+
+.SH DESCRIPTION
+.nf
+.sp
+
+p - pointer to a valid mapped_memory_pool_t valid pointer can be
+    obtained from:
+    cop_cc_pool()
+    cop_rx_pool()
+
+type - corresponds to the type of CRB/coprocessor and can be:
+       COP_DECOMP
+       COP_SYM_CRYPTO
+       COP_ASYM_CRYPTO
+       COP_RNG
+       COP_ASYNC_DATA_MOVER
+       COP_REGX
+       COP_XML
+
+.SH SEE ALSO
+libcop(3)
+libcopmalloc(3)

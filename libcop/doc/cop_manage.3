@@ -1,0 +1,37 @@
+.\" This manpage is Copyright (C) 2010 IBM
+.\" Written by Mike Kravetz <kravetz@us.ibm.com>
+.\"
+.TH COP_MANAGE 3 2010-06-30 "Libcop" "Libcop Programmer's Manual"
+.SH NAME
+cop_manage \- Basic coprocessor interface functions
+.SH SYNOPSIS
+.nf
+.B #include <libcopmanage.h>
+.sp
+
+int cop_exists(int cop);
+
+int cop_get_status(int cop_number);
+
+.SH DESCRIPTION
+Determine if coprocessor exists, and get status of coprocessor.
+.nf
+.sp
+
+cop, cop_number - coprocessor ID
+       COP_DECOMP
+       COP_SYM_CRYPTO
+       COP_ASYM_CRYPTO
+       COP_RNG
+       COP_ASYNC_DATA_MOVER
+       COP_REGX
+       COP_XML
+
+.SH RETURN VALUE
+.sp
+cop_exists returns a non-zero value of the coprocessor exists
+
+cop_get_status returns a non-zero value if the coprocessor exists
+
+.SH SEE ALSO
+libcop(3)

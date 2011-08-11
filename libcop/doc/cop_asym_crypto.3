@@ -1,0 +1,127 @@
+.\" This manpage is Copyright (C) 2009,2010 IBM
+.\" Written by Chris J Arges <arges@us.ibm.com>,
+.\"            Mike Kravetz <kravetz@us.ibm.com>
+.\"
+.TH COP_ASYM_CRYPTO 3 2010-06-30 "Libcop" "Libcop Programmer's Manual"
+.SH NAME
+cop_asym_crypto \- asymmetric coprocessor functions
+.SH SYNOPSIS
+.nf
+.B #include <libcop.h>
+.sp
+.I Integer Modular Functions:
+
+BigNumber *cop_madd(const BigNumber *a, const BigNumber *b,
+		    const BigNumber *n);
+
+BigNumber *cop_msub(const BigNumber *a, const BigNumber *b,
+		    const BigNumber *n);
+
+BigNumber *cop_mred(const BigNumber *a, const BigNumber *n);
+
+BigNumber *cop_mex(const BigNumber *a, const BigNumber *e,
+		   const BigNumber *n);
+
+BigNumber *cop_mmul(const BigNumber *a, const BigNumber *b,
+		    const BigNumber *n);
+
+BigNumber *cop_mgmul(const BigNumber *a, const BigNumber *b,
+		     const BigNumber *n);
+
+BigNumber *cop_minv(const BigNumber *a, const BigNumber *n);
+
+.I Chinese Remainder Theorem Modular Function:
+
+BigNumber *cop_mexc(const BigNumber *a, const BigNumber *dp,
+		    const BigNumber *dq, const BigNumber *np,
+		    const BigNumber *nq, const BigNumber *u);
+
+.I Elliptical Curve Cryptography Functions:
+
+BigNumber *cop_m2add(const BigNumber *a, const BigNumber *b,
+		     const BigNumber *n);
+
+BigNumber *cop_m2red(const BigNumber *a, const BigNumber *b,
+		     const BigNumber *n);
+
+BigNumber *cop_m2ex(const BigNumber *a, const BigNumber *e,
+		    const BigNumber *n);
+
+BigNumber *cop_m2mul(const BigNumber *a, const BigNumber *b,
+		     const BigNumber *n);
+
+BigNumber *cop_mg2mul(const BigNumber *a, const BigNumber *b,
+		      const BigNumber *n);
+
+BigNumber *cop_m2mi(const BigNumber *a, const BigNumber *b,
+		    const BigNumber *n);
+
+.SH DESCRIPTION
+.nf
+.sp
+
+.I Integer Modular Functions
+
+cop_madd - Modular Addition
+R = (A + B) mod N
+
+cop_mred - Modular Reduction
+R = A mod N
+
+cop_msub - Modular Subtraction
+R = (A - B) mod N
+
+cop_mex - Modular Exponentiation
+R = (A ^ B) mod N
+
+cop_mmul - Modular Multiplication
+R = (A * B) mod N
+
+cop_mgmul - Modular Multiplication using the Montgomery Method
+R = (A * B) mod N
+
+cop_minv - Modular Inverse
+R = (1/A) mod N
+
+.I Chinese Remainder Theorem Format Modular Functions
+
+cop_mexc - Modular Exponentiation Using the
+	   Chinese Remainder Theorem Method
+R = (A ^ B) Mod N
+
+.I Inputs:
+
+A,Dp,Dq,Np,Nq,U
+
+.I Assumptions:
+
+N = Np * Nq, Dp = B mod (Np - 1), Dq = B Mod (Nq - 1), U = (1/Nq) mod Np
+
+.I Notes:
+
+This function performs modular exponentation similar to cop_mex, except
+the numbers are in the format described in the assumptions section.
+
+.I Elliptical Curve Cryptographic Functions
+
+cop_m2add 
+R(x)=A(x)+B(x) mod N(x)
+
+cop_m2red
+R(x)=A(x) mod N(x)
+
+cop_m2ex
+R(x)=A(x)^B(x) mod N(x)
+
+cop_m2mul
+R(x)=A(x)*B(x) mod N(x)
+
+cop_mg2mul
+R(x)=A(x)*B(x)*(1/O) mod N(x)
+
+cop_m2mi
+R(x)=1/(A(x)) mod N(x)
+
+.SH SEE ALSO
+libcop(3)
+cop_asym_crypto_async(3)

@@ -1,0 +1,262 @@
+.\" This manpage is Copyright (C) 2009, 2010 IBM
+.\" Written by Chris J Arges <arges@us.ibm.com>
+.\"            Mike Kravetz <kravetz@us.ibm.com>
+.\"
+.TH COP_SYM_CRYPTO_ASYNC 3 2010-06-30 "Libcop" "Libcop Programmer's Manual"
+.SH NAME
+cop_sym_crypto_async \- symmetric coprocessor functions (asynchronous invocation)
+.SH SYNOPSIS
+.nf
+.B #include <libcop.h>
+.sp
+.I hash functions:
+errorn cop_md5_async(const void *source, size_t length, void *digest,
+		void *message_bit_length, uint8_t flag,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_sha1_async(const void *source, size_t length, void *digest,
+		void *message_bit_length, uint8_t flag,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_sha256_async(const void *source, size_t length, void *digest,
+		void *message_bit_length, uint8_t flag,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_sha512_async(const void *source, size_t length, void *digest,
+		void *message_bit_length, uint8_t flag,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+.I sha hmac functions:
+errorn cop_sha1_hmac_async(const void *source, size_t length,
+		void *digest, void *message_bit_length, void *key,
+		uint8_t flag, uint8_t completion_method,
+		struct cop_crb **pcrb);
+
+errorn cop_sha256_hmac_async(const void *source, size_t length,
+		void *digest, void *message_bit_length, void *key,
+		uint8_t flag, uint8_t completion_method,
+		struct cop_crb **pcrb);
+
+errorn cop_sha512_hmac_async(const void *source, size_t length,
+		void *digest, void *message_bit_length, void *key,
+		uint8_t flag, uint8_t completion_method,
+		struct cop_crb **pcrb);
+
+.I rc4 functions:
+errorn cop_rc4_40_async(const void *key, size_t length,
+		const void *indata, void *outdata, void *state,
+		uint8_t * x_val, uint8_t * y_val, uint8_t flag,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_rc4_64_async(const void *key, size_t length,
+		const void *indata, void *outdata, void *state,
+		uint8_t * x_val, uint8_t * y_val, uint8_t flag,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_rc4_128_async(const void *key, size_t length,
+		const void *indata, void *outdata, void *state,
+		uint8_t * x_val, uint8_t * y_val, uint8_t flag,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+.I des functions
+errorn cop_des_ecb_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, uint8_t enc,
+		uint8_t pad_rules, uint8_t pad_byte,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_tdes_ecb_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, uint8_t enc,
+		uint8_t pad_rules, uint8_t pad_byte,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_des_cbc_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, void *initial_value,
+		uint8_t enc, uint8_t pad_rules, uint8_t pad_bytes,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_tdes_cbc_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, void *initial_value,
+		uint8_t enc, uint8_t pad_rules, uint8_t pad_bytes,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+.I aes functions
+errorn cop_aes_ecb_128_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, uint8_t enc,
+		uint8_t pad_rules, uint8_t pad_byte,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_aes_ecb_192_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, uint8_t enc,
+		uint8_t pad_rules, uint8_t pad_byte,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_aes_ecb_256_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, uint8_t enc,
+		uint8_t pad_rules, uint8_t pad_byte,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_aes_cbc_128_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, void *initial_value,
+		uint8_t enc, uint8_t pad_rules, uint8_t pad_byte,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_aes_cbc_192_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, void *initial_value,
+		uint8_t enc, uint8_t pad_rules, uint8_t pad_byte,
+		uint8_t completion_method, struct cop_crb **pcrb);
+
+errorn cop_aes_cbc_256_async(const void *input, size_t input_sz,
+		void *output, void *key_schedule, void *initial_value,
+		uint8_t enc, uint8_t pad_rules, uint8_t pad_byte,
+		uint8_t completion_method, struct cop_crb **pcrb);
+.SH DESCRIPTION
+.SS hash functions
+functions:
+.RS
+.B cop_md5_async, cop_sha1_async, cop_sha256_async, cop_sha512_async
+.RE
+.P
+parameters:
+.RS
+.I const void *source
+is a pointer source data to be hashed
+.P
+.I size_t length
+is the length of the source data in bytes
+.P
+.I void *digest
+is the output pointer of the hash function (must be preallocated)
+.P
+.I void *message_bit_length
+this value must be set to the total bit length during the last hash operation. This only applies during the final hash in a multi-pass hash. Other operations can leave this parameter NULL.
+.P
+.I uint8_t flag
+determines if multi-pass or single-pass operation is desired. For one-pass operation use COP_FLAG_ONESHOT. For multi-pass use COP_FLAG_FIRST, COP_FLAG_MIDDLE, and COP_FLAG_LAST on the first, middle, and last operations respectively. 
+.P
+.I uint8_t completion_method
+COMPLETION_STORE means the user of this function must check  the valid  bit in the CSB ASYNC_INTERRUPT means notification of completion will be sent via an interrupt which is caught via epoll.
+.P
+.I struct cop_crb **pcrb
+CRB created by the routine that is associated with the call to the coprocessor.  The CRB must be released via the cop_give_back_crb(cop_cc_pool(), CRB, COP_SYM_CRYPTO) routine.
+.RE
+
+.SS sha hmac functions
+functions:
+.RS
+.B cop_sha1_hmac_async, cop_sha256_hmac_async, cop_sha512_hmac_async
+.RE
+.P
+parameters:
+.RS
+.I const void *source
+is a pointer source data to be hashed
+.P
+.I size_t length
+is the length of the source data in bytes
+.P
+.I void *digest
+is the output pointer of the hash function (must be preallocated)
+.P
+.I void *message_bit_length
+must be set to the total bit length during the last hash operation. This only applies during the final hash in a multi-pass hash. Other operations can leave this parameter NULL.
+.P
+.I void *key
+is the key used in the hmac function. SHA1,256 uses 64 byte keys. SHA512 uses 128 byte keys.
+.P
+.I uint8_t flag
+determines if multi-pass or single-pass operation is desired. For one-pass operation use COP_FLAG_ONESHOT. For multi-pass use COP_FLAG_FIRST, COP_FLAG_MIDDLE, and COP_FLAG_LAST on the first, middle, and last operations respectively. 
+.P
+.I uint8_t completion_method
+COMPLETION_STORE means the user of this function must check  the valid  bit in the CSB ASYNC_INTERRUPT means notification of completion will be sent via an interrupt which is caught via epoll.
+.P
+.I struct cop_crb **pcrb
+CRB created by the routine that is associated with the call to the coprocessor.  The CRB must be released via the cop_give_back_crb(cop_cc_pool(), CRB, COP_SYM_CRYPTO) routine.
+.RE
+
+.SS rc4 functions
+functions:
+.RS
+.B cop_rc4_40_async, cop_rc4_64_async, cop_rc4_128_async
+.RE
+.P
+parameters:
+.RS
+.I const void *key
+the key used for the rc4 cipher. RC4-40 uses a 40 byte key, RC4-64 uses a 64 byte key, an RC4-128 uses a 128 byte key.
+.P
+.I size_t length
+is the length of the source data in bytes
+.P
+.I const void *indata
+is a pointer to the source data to be ciphered
+.P
+.I void *outdata
+is the output pointer of the rc4 function
+.P
+.I void *state
+is a pointer to the 128 byte value used during partial message processing. Input on COP_FLAG_MIDDLE and COP_FLAG_LAST. Output on COP_FLAG_FIRST, COP_FLAG_MIDDLE. Can be NULL for COP_FLAG_ONESHOT.
+.P
+.I uint8_t *x_val
+is a pointer to the 8 byte value used during partial message processing. Input on COP_FLAG_MIDDLE and COP_FLAG_LAST. Output on COP_FLAG_FIRST, COP_FLAG_MIDDLE. Can be NULL for COP_FLAG_ONESHOT.
+.P
+.I uint8_t *y_val
+is a pointer to the 8 byte value used during partial message processing. Input on COP_FLAG_MIDDLE and COP_FLAG_LAST. Output on COP_FLAG_FIRST, COP_FLAG_MIDDLE. Can be NULL for COP_FLAG_ONESHOT.
+.P
+.I uint8_t flag
+determines if multi-pass or single-pass operation is desired. For one-pass operation use COP_FLAG_ONESHOT. For multi-pass use COP_FLAG_FIRST, COP_FLAG_MIDDLE, and COP_FLAG_LAST on the first, middle, and last operations respectively. 
+.P
+.I uint8_t completion_method
+COMPLETION_STORE means the user of this function must check  the valid  bit in the CSB ASYNC_INTERRUPT means notification of completion will be sent via an interrupt which is caught via epoll.
+.P
+.I struct cop_crb **pcrb
+CRB created by the routine that is associated with the call to the coprocessor.  The CRB must be released via the cop_give_back_crb(cop_cc_pool(), CRB, COP_SYM_CRYPTO) routine.
+.RE
+
+.SS des/aes functions
+functions:
+.RS
+.B cop_des_ecb_async, cop_tdes_ecb_async, cop_des_cbc_async, cop_tdes_cbc_async
+.P
+.B cop_aes_ecb_128_async, cop_aes_ecb_192_async, cop_aes_ecb_256_async
+.P
+.B cop_aes_cbc_128-async, cop_aes_cbc_192_async, cop_aes_cbc_256_async
+.RE
+.P
+parameters:
+.RS
+.I const void *input
+is a pointer to the source data to be ciphered
+.P
+.I size_t input_sz
+is the size of the input data
+.P
+.I void *output
+is the output pointer of the function
+.P
+.I void *key_schedule
+is a pointer to the key to be used. Key sizes in bytes: DES 7, TDES 21, AES-128 16, AES-192 24, AES-256 32.
+.P
+.I void *initial_value (cbc only)
+is the initial value input during CBC (chaining block cipher) operations.
+.P
+.I uint8_t enc
+determines if we are encrypting or decrypting. 1 is encrypt, 0 is decrypt.
+.P
+.I uint8_t pad_rules
+determines the type of padding used by the function. COP_RPAD_NONE is no padding. COP_RPAD_ZERO uses the pad_bytes value followed by zeros. COP_RPAD_INC uses incrementally increasing values of pad_bytes. COP_RPAD_USE uses concatenations of pad_bytes.
+.P
+.I uint8_t pad_bytes
+is the value used, if a pad rule uses a padding byte.
+.P
+.I uint8_t completion_method
+COMPLETION_STORE means the user of this function must check  the valid  bit in the CSB ASYNC_INTERRUPT means notification of completion will be sent via an interrupt which is caught via epoll.
+.P
+.I struct cop_crb **pcrb
+CRB created by the routine that is associated with the call to the coprocessor.  The CRB must be released via the cop_give_back_crb(cop_cc_pool(), CRB, COP_SYM_CRYPTO) routine.
+.P
+.RE
+
+.SH SEE ALSO
+licop(3)
+cop_asym_crypto(3)
+cop_cache(3)

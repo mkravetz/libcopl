@@ -1,0 +1,56 @@
+1) About
+
+libcopl and libcop are libraries that provide APIs for PowerEN EN coprocessor
+access and utilization.  libcop provides simpler interface for use with minimal
+knowledge of coprocessor details.  libcopl provides a lower level set of
+interfaces.  libcop will be deprecated.
+
+libcopl is the recommended API for applications that want maximum performance
+and flexibility.  Applications that use libcopl must manage all coprocessor
+memory themselves.  
+
+2) Supported Coprocessors
+
+RNG (Random Number Generator),
+Compression/Decompression,
+Asymmetric Crypto/Symmetric Crypto,
+ADM (Asynchronous Data Mover)
+RegX (very limited support)
+
+3) API Information
+
+libcopl interfaces are documented "in the code" and can be extracted
+with Doxygen.  Doxygen config files (Doxyfile) can be found in the
+libcopl and libcop subdirectories.  Man pages also exist for some of
+the libcop interfaces.
+
+4) Building
+
+Note, this library is indented to be run on PowerEN chip only at the 
+moment, which is a POWER architecture chip.
+
+(ppc64)
+	./configure 
+	make && make check
+	sudo make install
+
+(x86_64 assume the existance of a cross build environment)
+	./configure --host=powerpc64-unknown-linux-gnu 
+	make && make check
+	sudo make install
+
+6) Configure options
+
+	--prefix=<path to install to>
+
+	--disable-reentrant     disable library from being threaded
+		( Do not turn off unless you are only running single threaded. )
+
+	--enable-debug          build with debugging information
+	--enable-verbose        library prints verbose output
+		( This will write LOTS of output to your terminal. )
+
+	--disable-openssl       disable openssl in testcases
+	--enable-perf           enable papi/pfm in testcases
+	--enable-regx-support   enable support for the regx coprocessor
+

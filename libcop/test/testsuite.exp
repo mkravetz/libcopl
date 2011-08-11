@@ -1,0 +1,75 @@
+load_lib "dejagnu.exp"
+
+set timeout 60
+
+proc dotest {testname} {
+	set testformat "=== \[^ \]+: \[0-9\]+\/\[0-9\]+ failures ===\r\n"
+	spawn $testname
+	expect {
+		-re $testformat { 
+			regexp {(\d+)\/(\d+)} $expect_out(0,string) "" failures total
+			if {$failures > 0} {
+				fail $testname 
+			} else {
+				pass $testname
+			}
+		}
+		timeout {
+			fail "$testname HANG!"
+		}
+	}
+}
+
+# test all valid programs
+
+dotest "test/admtest001"
+dotest "test/admtest002"
+dotest "test/admtest003"
+dotest "test/admtest004"
+dotest "test/admtest005"
+dotest "test/asymtest001"
+dotest "test/asymtest002"
+dotest "test/asymtest003"
+dotest "test/asymtest004"
+dotest "test/asymtest005"
+dotest "test/asymtest006"
+dotest "test/bntest001"
+dotest "test/ciphertest001"
+dotest "test/comptest003"
+dotest "test/comptest004"
+dotest "test/comptest007"
+dotest "test/comptest008"
+dotest "test/comptest010"
+dotest "test/comptest015"
+dotest "test/comptest016"
+dotest "test/comptest017"
+dotest "test/comptest018"
+dotest "test/comptest019"
+dotest "test/err001"
+dotest "test/forktest001"
+dotest "test/forktest002"
+dotest "test/hashtest001"
+dotest "test/hashtest002"
+dotest "test/hashtest003"
+dotest "test/hashtest004"
+dotest "test/hmactest001"
+dotest "test/mmutest001"
+dotest "test/mmutest002"
+dotest "test/mmutest003"
+dotest "test/mmutest004"
+dotest "test/mmutest005"
+dotest "test/mmutest006"
+dotest "test/mmutest007"
+dotest "test/mmutest008"
+dotest "test/regxtest004"
+dotest "test/regxtest012"
+dotest "test/rndtest001"
+dotest "test/rndtest002"
+dotest "test/rndtest003"
+dotest "test/rndtest004"
+dotest "test/threadtest001"
+dotest "test/threadtest002"
+dotest "test/threadtest003"
+dotest "test/threadtest004"
+dotest "test/threadtest005"
+dotest "test/threadtest006"

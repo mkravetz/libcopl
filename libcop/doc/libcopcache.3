@@ -1,0 +1,18 @@
+.\" This manpage is Copyright (C) 2010 IBM
+.\" Written by Mike Kravetz <kravetz@us.ibm.com>
+.\"
+.TH LIBCOPCACHE 3 2010-06-30 "Libcop" "Libcop Programmer's Manual"
+.SH NAME
+libcopcache \- Magement of Cached data structure Library
+.SH SYNOPSIS
+.B #include <libcop.h>
+.SH DESCRIPTION
+A cache of CRBs, DDEs which are pre initialized for use by
+icswx. You can set the cache levels. The cache is by thread and
+contained in thread local storage so the cache is lockless.
+
+
+.SH SEE ALSO
+.nf
+cop_cache(3)
+cop_malloc(3)

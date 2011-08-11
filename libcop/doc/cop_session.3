@@ -1,0 +1,57 @@
+.\" This manpage is Copyright (C) 2009, 2010 IBM
+.\" Written by Chris J Arges <arges@linux.vnet.ibm.com>
+.\"            Mikr Kravetz <kravetz@us.ibm.com>
+.\"
+.TH COP_SESSION 2010-06-30 "Libcop Programmer's Manual"
+.SH NAME
+cop_session \- System to create dispatchable work to coprocessors syncrhonously or
+asynchronously
+.SH SYNOPSIS
+.nf
+.sp
+.P
+.B #include <libcop.h>
+
+.P
+inline cop_state_t
+cop_get_session_state(cop_session *session);
+
+inline void
+cop_set_session_state(cop_session *session, cop_state_t newstate);
+
+size_t
+cop_get_tgt_size(cop_session *session);
+
+size_t
+cop_get_src_size(cop_session *session);
+
+size_t
+cop_get_data_output_size(cop_session *session);
+
+size_t
+cop_get_src_processed(cop_session *session);
+
+cop_session *
+cop_commit_session(cop_session *session);
+
+cop_session *
+cop_commit_session_async(cop_session *session);
+
+int
+cop_session_iscomplete(cop_session *session);
+
+void
+cop_free_session(cop_session *session);
+
+.SH DESCRIPTION
+.P
+The coprocessors located on the Wire Speed Processors have a limited mechanism to dispatch
+work as well as receiving reports of when that work is completed. Further in some situations
+one needs to be able to continue the dispatched work such as might be the case in decompressing
+large files streams.
+Sessions were created to address these problems.
+
+.SH SEE ALSO
+libpcop(3)
+cop_malloc(3)
+cop_cache(3)

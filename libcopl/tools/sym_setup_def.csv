@@ -1,0 +1,59 @@
+"#name";"fn";"group";"mode";"enc";"flag";"pad";"ks";"ds";"source";"target";"struct";"brief"
+"AES_ECB";"AES";"AES";"MODE_AES_ECB";"?";0;"?";"?";0;"cipher";"cipher";"AES_ECB";"Setup required for Advanced Encryption Standard using Electronic Code Book (ECB) mode."
+"AES_ECB_128";"AES";"AES";"MODE_AES_ECB";"?";0;"?";"KS_AES_128";0;"cipher";"cipher";"AES_ECB";"Setup required for Advanced Encryption Standard using Electronic Code Book (ECB) mode."
+"AES_ECB_192";"AES";"AES";"MODE_AES_ECB";"?";0;"?";"KS_AES_192";0;"cipher";"cipher";"AES_ECB";"Setup required for Advanced Encryption Standard using Electronic Code Book (ECB) mode."
+"AES_ECB_256";"AES";"AES";"MODE_AES_ECB";"?";0;"?";"KS_AES_256";0;"cipher";"cipher";"AES_ECB";"Setup required for Advanced Encryption Standard using Electronic Code Book (ECB) mode."
+"AES_CBC";"AES";"AES";"MODE_AES_CBC";"?";0;"?";"?";0;"cipher";"cipher";"AES_CBC";"Setup required for Advanced Encryption Standard using Cipher-Block Chaining (CBC) mode."
+"AES_CBC_128";"AES";"AES";"MODE_AES_CBC";"?";0;"?";"KS_AES_128";0;"cipher";"cipher";"AES_CBC";"Setup required for Advanced Encryption Standard using Cipher-Block Chaining (CBC) mode."
+"AES_CBC_192";"AES";"AES";"MODE_AES_CBC";"?";0;"?";"KS_AES_192";0;"cipher";"cipher";"AES_CBC";"Setup required for Advanced Encryption Standard using Cipher-Block Chaining (CBC) mode."
+"AES_CBC_256";"AES";"AES";"MODE_AES_CBC";"?";0;"?";"KS_AES_256";0;"cipher";"cipher";"AES_CBC";"Setup required for Advanced Encryption Standard using Cipher-Block Chaining (CBC) mode."
+"AES_GMAC";"AES";"AES";"MODE_AES_GMAC";0;"?";0;"?";0;"msg";0;"AES_GMAC";"Setup required for Advanced Encryption Standard using GMAC mode."
+"AES_GCA";"AES";"AES";"MODE_AES_GCA";0;"?";0;"?";0;"aad";0;"AES_GCA";"Setup required for Advanced Encryption Standard using GCA mode."
+"AES_GCM";"AES";"AES";"MODE_AES_GCM";"?";"?";0;"?";0;"cipher";"cipher";"AES_GCM";"Setup required for Advanced Encryption Standard using GCM mode."
+"AES_CCA";"AES";"AES";"MODE_AES_CCA";0;"?";0;0;0;"aad";0;"AES_CCA";"Setup required for Advanced Encryption Standard using CCA mode."
+"AES_CCM";"AES";"AES";"MODE_AES_CCM";"?";"?";0;0;0;"cipher";"cipher";"AES_CCM";"Setup required for Advanced Encryption Standard using CCM mode."
+"AES_CTR";"AES";"AES";"MODE_AES_CTR";0;0;0;"?";0;"cipher";"cipher";"AES_CTR";"Setup required for Advanced Encryption Standard using Counter increment mode."
+"AES_XMAC";"AES";"AES";"MODE_AES_XMAC";0;"?";0;0;0;"msg";0;"AES_XMAC";"Setup required for Advanced Encryption Standard using XMAC mode."
+"DES_ECB";"DES";"DES";"MODE_DES_ECB";"?";0;"?";0;0;"cipher";"cipher";"DES_ECB";
+"DES_CBC";"DES";"DES";"MODE_DES_CBC";"?";0;"?";0;0;"cipher";"cipher";"DES_CBC";
+"TDES_ECB";"DES";"DES";"MODE_TDES_ECB";"?";0;"?";0;0;"cipher";"cipher";"TDES_ECB";
+"TDES_CBC";"DES";"DES";"MODE_TDES_CBC";"?";0;"?";0;0;"cipher";"cipher";"TDES_CBC";
+"KASUMI_F8";"KAS";"KASUMI";"MODE_KAS_F8";0;"?";0;0;0;"cipher";"cipher";"KASUMI_F8";
+"KASUMI_F9";"KAS";"KASUMI";"MODE_KAS_F9";0;"?";0;0;0;"msg";0;"KASUMI_F9";
+"RC4_40";"RC4";"RC4";"MODE_RC4";0;"?";0;"KS_RC4_40";0;"cipher";"cipher";"RC4";
+"RC4_64";"RC4";"RC4";"MODE_RC4";0;"?";0;"KS_RC4_64";0;"cipher";"cipher";"RC4";
+"RC4_128";"RC4";"RC4";"MODE_RC4";0;"?";0;"KS_RC4_128";0;"cipher";"cipher";"RC4";
+"MD5";"MD5";"HASH";"MODE_MD5";0;"?";0;0;"DS_MD5";"msg";0;"MD5";
+"SHA1";"SHA";"HASH";"MODE_SHA";0;"?";0;0;"DS_SHA_1";"msg";0;"SHA1";
+"SHA256";"SHA";"HASH";"MODE_SHA";0;"?";0;0;"DS_SHA_256";"msg";0;"SHA256";
+"SHA512";"SHA";"HASH";"MODE_SHA";0;"?";0;0;"DS_SHA_512";"msg";0;"SHA512";
+"SHA1_HMAC";"SHA";"HMAC";"MODE_SHA_HMAC";0;"?";0;0;"DS_SHA_1";"msg";0;"SHA1_HMAC";
+"SHA256_HMAC";"SHA";"HMAC";"MODE_SHA_HMAC";0;"?";0;0;"DS_SHA_256";"msg";0;"SHA256_HMAC";
+"SHA512_HMAC";"SHA";"HMAC";"MODE_SHA_HMAC";0;"?";0;0;"DS_SHA_512";"msg";0;"SHA512_HMAC";
+"AES_CBC_SHA1_HMAC_ETA";"AES_HMAC";"AES_HMAC";"MODE_AES_CBC_ETA";"?";0;"?";"?";"DS_SHA_1";"cipher";"cipher";"AES_SHA1_HMAC";
+"AES_CBC_SHA256_HMAC_ETA";"AES_HMAC";"AES_HMAC";"MODE_AES_CBC_ETA";"?";0;"?";"?";"DS_SHA_256";"cipher";"cipher";"AES_SHA256_HMAC";
+"AES_CBC_SHA512_HMAC_ETA";"AES_HMAC";"AES_HMAC";"MODE_AES_CBC_ETA";"?";0;"?";"?";"DS_SHA_512";"cipher";"cipher";"AES_SHA512_HMAC";
+"AES_CTR_SHA1_HMAC_ETA";"AES_HMAC";"AES_HMAC";"MODE_AES_CTR_ETA";"?";0;0;"?";"DS_SHA_1";"cipher";"cipher";"AES_SHA1_HMAC";
+"AES_CTR_SHA256_HMAC_ETA";"AES_HMAC";"AES_HMAC";"MODE_AES_CTR_ETA";"?";0;0;"?";"DS_SHA_256";"cipher";"cipher";"AES_SHA256_HMAC";
+"AES_CTR_SHA512_HMAC_ETA";"AES_HMAC";"AES_HMAC";"MODE_AES_CTR_ETA";"?";0;0;"?";"DS_SHA_512";"cipher";"cipher";"AES_SHA512_HMAC";
+"TDES_SHA1_HMAC_ETA";"TDES_HMAC";"TDES_HMAC";"MODE_TDES_CBC_ETA";"?";0;"?";0;"DS_SHA_1";"cipher";"cipher";"TDES_SHA1_HMAC";
+"TDES_SHA256_HMAC_ETA";"TDES_HMAC";"TDES_HMAC";"MODE_TDES_CBC_ETA";"?";0;"?";0;"DS_SHA_256";"cipher";"cipher";"TDES_SHA256_HMAC";
+"TDES_SHA512_HMAC_ETA";"TDES_HMAC";"TDES_HMAC";"MODE_TDES_CBC_ETA";"?";0;"?";0;"DS_SHA_512";"cipher";"cipher";"TDES_SHA512_HMAC";
+"AES_CBC_SHA1_HMAC_ATE";"AES_HMAC";"AES_HMAC";"MODE_AES_CBC_ATE";"?";0;"?";"?";"DS_SHA_1";"cipher";"cipher";"AES_SHA1_HMAC";
+"AES_CBC_SHA256_HMAC_ATE";"AES_HMAC";"AES_HMAC";"MODE_AES_CBC_ATE";"?";0;"?";"?";"DS_SHA_256";"cipher";"cipher";"AES_SHA256_HMAC";
+"AES_CBC_SHA512_HMAC_ATE";"AES_HMAC";"AES_HMAC";"MODE_AES_CBC_ATE";"?";0;"?";"?";"DS_SHA_512";"cipher";"cipher";"AES_SHA512_HMAC";
+"AES_CTR_SHA1_HMAC_ATE";"AES_HMAC";"AES_HMAC";"MODE_AES_CTR_ATE";"?";0;0;"?";"DS_SHA_1";"cipher";"cipher";"AES_SHA1_HMAC";
+"AES_CTR_SHA256_HMAC_ATE";"AES_HMAC";"AES_HMAC";"MODE_AES_CTR_ATE";"?";0;0;"?";"DS_SHA_256";"cipher";"cipher";"AES_SHA256_HMAC";
+"AES_CTR_SHA512_HMAC_ATE";"AES_HMAC";"AES_HMAC";"MODE_AES_CTR_ATE";"?";0;0;"?";"DS_SHA_512";"cipher";"cipher";"AES_SHA512_HMAC";
+"TDES_SHA1_HMAC_ATE";"TDES_HMAC";"TDES_HMAC";"MODE_TDES_CBC_ATE";"?";0;"?";0;"DS_SHA_1";"cipher";"cipher";"TDES_SHA1_HMAC";
+"TDES_SHA256_HMAC_ATE";"TDES_HMAC";"TDES_HMAC";"MODE_TDES_CBC_ATE";"?";0;"?";0;"DS_SHA_256";"cipher";"cipher";"TDES_SHA256_HMAC";
+"TDES_SHA512_HMAC_ATE";"TDES_HMAC";"TDES_HMAC";"MODE_TDES_CBC_ATE";"?";0;"?";0;"DS_SHA_512";"cipher";"cipher";"TDES_SHA512_HMAC";
+"AES_CBC_SHA1_HMAC_EAA";"AES_HMAC";"AES_HMAC";"MODE_AES_CBC_EAA";"?";0;"?";"?";"DS_SHA_1";"cipher";"cipher";"AES_SHA1_HMAC";
+"AES_CBC_SHA256_HMAC_EAA";"AES_HMAC";"AES_HMAC";"MODE_AES_CBC_EAA";"?";0;"?";"?";"DS_SHA_256";"cipher";"cipher";"AES_SHA256_HMAC";
+"AES_CBC_SHA512_HMAC_EAA";"AES_HMAC";"AES_HMAC";"MODE_AES_CBC_EAA";"?";0;"?";"?";"DS_SHA_512";"cipher";"cipher";"AES_SHA512_HMAC";
+"AES_CTR_SHA1_HMAC_EAA";"AES_HMAC";"AES_HMAC";"MODE_AES_CTR_EAA";"?";0;0;"?";"DS_SHA_1";"cipher";"cipher";"AES_SHA1_HMAC";
+"AES_CTR_SHA256_HMAC_EAA";"AES_HMAC";"AES_HMAC";"MODE_AES_CTR_EAA";"?";0;0;"?";"DS_SHA_256";"cipher";"cipher";"AES_SHA256_HMAC";
+"AES_CTR_SHA512_HMAC_EAA";"AES_HMAC";"AES_HMAC";"MODE_AES_CTR_EAA";"?";0;0;"?";"DS_SHA_512";"cipher";"cipher";"AES_SHA512_HMAC";
+"TDES_SHA1_HMAC_EAA";"TDES_HMAC";"TDES_HMAC";"MODE_TDES_CBC_EAA";"?";0;"?";0;"DS_SHA_1";"cipher";"cipher";"TDES_SHA1_HMAC";
+"TDES_SHA256_HMAC_EAA";"TDES_HMAC";"TDES_HMAC";"MODE_TDES_CBC_EAA";"?";0;"?";0;"DS_SHA_256";"cipher";"cipher";"TDES_SHA256_HMAC";
+"TDES_SHA512_HMAC_EAA";"TDES_HMAC";"TDES_HMAC";"MODE_TDES_CBC_EAA";"?";0;"?";0;"DS_SHA_512";"cipher";"cipher";"TDES_SHA512_HMAC";

@@ -1,0 +1,62 @@
+.\" This manpage is Copyright (C) 2009, 2010 IBM
+.\" Written by Tom Gall <tom_gall@vnet.ibm.com>
+.\"            Mikr Kravetz <mkravetz@us.ibm.com>
+.\"
+.TH COP_DATA_MOVE_ASYNC 3 2010-06-30 "Libcop" "Libcop Programmer's Manual"
+.SH NAME
+cop_data_move \- Asychronous Data Mover
+.SH SYNOPSIS
+.nf
+.I Asynchronous Data Mover function (asynchronous invocation):
+.sp
+.B #include <libcop.h>
+.P
+struct cop_crb *cop_memcpy_async(void *dest, void *src,
+				size_t n, int notification);
+
+struct cop_crb *cop_memmove_async(void *dest, void *src,
+				size_t n, int notification);
+
+struct cop_crb **cop_memset_async(void *dest, int c,
+				size_t n, int notification);
+
+.SH DESCRIPTION
+.SS asynchronous invocation of memory copy, move and set functions. 
+function:
+.RS
+.B cop_memcpy_async, cop_memmove_async, cop_memset_async
+.RE
+.P
+parameters:
+.RS
+.I void *s
+is a pointer to the memory area destination
+
+This memory must be PBIC mapped or obtained with cop_malloc*
+
+.P
+.I void *ct
+is a pointer to the memory area source
+
+This memory must be PBIC mapped or obtained with cop_malloc*
+.P
+.I size_t n
+is the number of bytes to copy
+.P
+.I int c
+character c to be placed in first n characters of s in cop_memset
+.P
+.I int notification
+.P This flag can be ASYNC_INTERRUPT or COMPLETION_STORE
+COMPLETION_STORE means the user of this function must check the valid bit in the CSB
+ASYNC_INTERRUPT means notification of completion will be sent via an interrupt which is
+caught via epoll.
+.RE
+.P
+.SH RETURN VALUE
+A pointer to the cop_common_request_bock is returned. This data structure must be release via cop_free.
+.P
+.SH SEE ALSO
+libcop(3)
+cop_malloc(3)
+cop_data_move(3)

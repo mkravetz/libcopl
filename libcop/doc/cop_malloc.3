@@ -1,0 +1,44 @@
+.\" This manpage is Copyright (C) 2009, 2010 IBM
+.\" Written by Chris J Arges <arges@linux.vnet.ibm.com>
+.\"            Mike Kravetz <kravetz@us.ibm.com>
+.\"
+.TH COP_MALLOC 2010-06-30 "Libcop" "Libcop Programmer's Manual"
+.SH NAME
+cop_malloc \- Allocate dynamic memory for use with coprocessors
+.SH SYNOPSIS
+The coprocessors located on the WSP chip do not have the ability to access any memory address. Instead an entry must be placed into the PBIC to specifically map portions of memory on a process by process basis. In addition not all coprocessors use the same PBIC. 
+Libcop by default sets up two mapped pools of memory for all the coprocessors on a system. To use a pool, one first obtains a handle to the appropriate pool that services the coprocessors of interest and then pass that handle for obtaining mapped memory. On completion of the icswx be sure to hand the memory and so on back to the library when you are done using it. Note when using the convenience functions pay attention to which parameters need memory which is already mapped.
+
+#include <libcopmalloc.h>
+.P
+mapped_memory_pool_t cop_rx_pool();
+.P
+mapped_memory_pool_t cop_cc_pool();
+.SH DESCRIPTION
+These two functions obtain a handle to the memory pool associated with a certain set of coprocessors.
+cop_rx_pool returns a handle to the memory pool to be used with the regular expression and xml coprocessors
+cop_cc_pool returns a handle to the memory pool to be used with the random number generator, asynchronous data mover, copression/decompression, symmetric crypto and asymmetric crypto coprocessors.
+
+.SH SYNOPSIS
+#include <libcopmalloc.h>
+.P
+void *cop_malloc(mapped_memory_pool_t p, size_t size, unsigned long alignment);
+.P
+void *cop_malloc_unaligned(mapped_memory_pool_t p, size_t size);
+.P
+void cop_free(mapped_memory_pool_t p, void *ptr);
+.SH DESCRIPTION
+These functions allocate or free dynamic storage which is already mapped for access by the coprocessors. Care must be given to pass the correct memory pool handle that corresponds to the coprocessor you want to utilize. 
+.SH EXAMPLE
+For example to allocate a page aligned 1024-byte memory chunk for use with the asynchronous data mover coprocessor:
+.P
+.nf
+	mapped_memory_pool_t pool_cc = cop_cc_pool();
+	void *mem_cc = cop_malloc(pool_cc, 1024, 4096);
+	/* use memory here */
+	cop_free(pool_cc, mem_cc);
+
+.P
+.SH SEE ALSO
+libcop(3)
+cop_cache(3)

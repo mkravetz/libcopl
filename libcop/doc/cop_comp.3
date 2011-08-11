@@ -1,0 +1,140 @@
+.\" This manpage is Copyright (C) 2009, 2010 IBM
+.\" Written by Everton Constantino <erc@br.ibm.com>
+.\"            Mike Kravetz <kravetz@us.ibm.com>
+.\"
+.TH COP_COMP 3 2009-06-30 "Libcop" "Libcop Programmer's Manual"
+.SH NAME
+cop_comp \- Compression/Decompression 
+.SH SYNOPSIS
+.nf
+.sp
+.B #include <libcop.h>
+.P
+
+cop_session *cop_create_gzip_session(int notificationmode,
+			size_t src_size, void *ptrSrc, size_t tgt_size, 
+			void *ptrTgt);
+
+cop_session *cop_create_gunzip_session_with_dde_list(int notificationmode,
+			int multiflag, size_t src_size, void *ptrSrc,
+			size_t tgt_size, void *ptrTgt);
+
+cop_session *cop_create_gunzip_session(int notificationmode,
+			int multiflag, size_t src_size, void *ptrSrc,
+			size_t tgt_size, void *ptrTgt);
+
+cop_session *cop_create_zlib_compression_session(int notificationmode,
+			size_t src_size, void *ptrSrc,
+			size_t tgt_size, void *ptrTgt);
+
+cop_session *cop_create_zlib_decompression_session_with_dde_list(int notificationmode,
+			int multiflag, size_t src_size, void *ptrSrc,
+			size_t tgt_size, void *ptrTgt);
+			
+cop_session *cop_create_zlib_decompression_session(int notificationmode,
+			int multiflag, size_t src_size, void *ptrSrc,
+			size_t tgt_size, void *ptrTgt);
+
+cop_session *cop_create_deflate_session(int notificationmode,
+			size_t src_size, void *ptrSrc, size_t tgt_size,
+			void *ptrTgt);
+
+cop_session *cop_create_inflate_session_with_dde_list(int notificationmode,
+			int multiflag, size_t src_size, void *ptrSrc,
+			size_t tgt_size, void *ptrTgt);
+			
+cop_session *cop_create_inflate_session(int notificationmode,
+			int multiflag, size_t src_size, void *ptrSrc,
+			size_t tgt_size, void *ptrTgt);
+
+void 		cop_free_comp_session( cop_session_t *s );
+
+.SH DESCRIPTION
+.P
+Functions to compress and decompress data using the gzip, zlib and deflate algorithm. Note that the difference between zlib, gzip and deflate is that zlib uses ADLER32 as a error checking mechanism, gzip uses CRC32 and deflate has no error checking. 
+
+All methods start with the creation of a session. In the case of compression no matter the algorithm all data must be associated with the session prior to the cop_session_commit* call. 
+
+Decompression sessions can have multiple commits continuing the session.
+
+In both compression and decompression cases, more than one data buffer allocated with
+cop_malloc* can be associated with a session. In the case of one data buffer a direct
+buffer with be uses, in the case of 2 or more, indirect buffers will be used.
+
+Care must be given for there are hardware limitations in the number of data buffers hardware
+can handle. Also extra scribble space must be included with the buffers. This is either 2.5K
+or 32K. Check the hardware manuals.
+
+The functions with *_with_dde_list are the same but they add the dde list support option so it keeps track of the buffers you sent. Note that you're the one responsible to clean the list in order to free space if you need it.
+
+The multi-flag parameters should be set to 1 if this session if going to send several requests to the coprocessor, it should be set to 0 in case this is a single request.
+
+In order to delete the compression session please use cop_free_comp_session instead of cop_free_session.
+
+.SH RETURN_VALUE
+All these functions return a cop_session pointer. The return value will be NULL in the case
+that changes to the session would make it invalid. 
+
+.SH SYNOPSIS
+.nf
+.sp
+.B #include <libcop.h>
+.P
+
+cop_session *cop_prep_next_decompression(cop_session *session,
+			int last, size_t src_size, void *ptrSrc,
+			size_t tgt_size, void *ptrTgt);
+			
+.SH DESCRIPTION
+.P
+This function is used to send the next source buffer in the multi CRB scheme. Notice that you can also send a new target buffer but be aware hardware limitations.
+
+.SH SYNOPSIS
+.nf
+.sp
+.B #include <libcop.h>
+.P
+
+cop_session_t *cop_gunzip_add_dde( cop_session_t *session, size_t tgt_size );
+
+cop_session_t *cop_zlib_decompression_add_dde( cop_session_t *session, size_t tgt_size );
+
+cop_session_t *cop_inflate_add_dde( cop_session_t *session, size_t tgt_size );
+
+cop_session_t *cop_zlib_decompression_add_tgt_buffer(cop_session_t * session,
+						     size_t tgt_size,
+						     void *ptrTgt);
+						     
+cop_session_t *cop_gunzip_add_tgt_buffer(cop_session_t * session,
+					 size_t tgt_size, void *ptrTgt);	
+					 					     
+cop_session_t *cop_inflate_add_tgt_buffer(cop_session_t * session,
+					 size_t tgt_size, void *ptrTgt);						 
+
+.SH DESCRIPTION
+.P
+All those functions serve to add another target buffer in case the coprocessor returned Error 13, or you think it's time to send another DDE. Be aware of hardware
+limitations and alignments, in case of the *_add_dde you just need to say how big the new target buffer should be, just make sure to start the session with one of the
+*_with_dde_list functions.
+.SH RETURN_VALUE
+All these functions return a cop_session pointer. The return value will be NULL in the case
+that changes to the session would make it invalid. 
+
+.SH SYNOPSIS
+.nf
+.sp
+.B #include <libcop.h>
+.P
+
+size_t cop_comp_copy_dde_list_with_offset( cop_session_t *session, void *buf, size_t size, size_t offset );
+
+void cop_comp_copy_dde_list( cop_session_t *session, void *buf, size_t size );
+
+.SH DESCRIPTION
+.P
+Once the decompression is over or if you want to store the result somewhere else and you're using the *_with_dde_list session you can call these functions to copy the current buffers to your buffer so you can e.g. write to a file. 
+
+.SH SEE ALSO
+libcop(3)
+cop_session(3)
+
